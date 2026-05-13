@@ -146,7 +146,7 @@
 
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+            padding-bottom: 56.25%; 
             height: 0;
             overflow: hidden;
             border-radius: 10px;
@@ -224,7 +224,6 @@
     <script>
         let startScale = 1;
 
-        // Logika Tombol Finish Menghindar
         function moveFinish() {
             const btn = document.getElementById('finishBtn');
             const startBtn = document.getElementById('startBtn');
@@ -245,7 +244,6 @@
 
         function validateName() {
             const input = document.getElementById('nameInput').value.toLowerCase().trim();
-            // Menggunakan nama yang kamu minta
             const allowed = "bhytania avrinda pubhyta vanha".toLowerCase();
             
             if (input === allowed) {
@@ -266,17 +264,15 @@
                         <p style="margin-bottom:20px;">Ini video kenangan kita di Pantai ✨</p>
                         <div class="video-container">
                             <iframe 
-                                src="https://drive.google.com/file/d/1x2h5t9PYB4cJfWCqS9Rkh6OkUH2vKhlY/preview" 
+                                src="https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792/preview" 
                                 allow="autoplay">
                             </iframe>
                         </div>
                     `;
                 } else {
-                    // Placeholder untuk room lainnya
                     content = `
                         <div style="padding: 40px; border: 2px dashed #555; border-radius: 10px;">
                             <p>Konten untuk room <b>${title}</b> sedang disiapkan...</p>
-                            <p style="font-size: 0.8rem; color: #888;">(Kamu bisa menambahkan foto/video di sini nanti)</p>
                         </div>
                     `;
                 }
