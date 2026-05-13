@@ -18,6 +18,7 @@
             height: 100%;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow: hidden;
+            background-color: var(--bg-dark);
         }
 
         .page {
@@ -34,45 +35,55 @@
         #page1 {
             display: flex;
             background-color: var(--bg-dark);
-            color: var(--netflix-red);
         }
 
         #page1 h1 {
-            font-size: 4rem;
-            margin-bottom: 50px;
+            font-size: 4.5rem;
+            margin-bottom: 60px;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            text-align: center;
+            letter-spacing: 8px;
+            color: var(--netflix-red);
+            font-weight: 900;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
 
         .btn-container {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             align-items: center;
+            position: relative;
+            min-height: 100px;
         }
 
         .btn-start {
             background-color: var(--netflix-red);
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.5rem;
+            padding: 18px 50px;
+            font-size: 1.6rem;
+            font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             z-index: 2;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+            letter-spacing: 2px;
         }
 
         .btn-finish {
             background-color: #333;
-            color: white;
+            color: #aaa;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.5rem;
+            padding: 18px 50px;
+            font-size: 1.6rem;
+            font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 6px;
             position: absolute;
             z-index: 1;
+            transition: 0.1s ease-out;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         /* --- Halaman 2: Username --- */
@@ -83,12 +94,13 @@
 
         .input-box {
             padding: 15px;
-            width: 300px;
+            width: 350px;
             border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 1.2rem;
             margin-bottom: 20px;
             text-align: center;
+            outline-color: var(--netflix-red);
         }
 
         /* --- Halaman 3: Netflix Room Selection --- */
@@ -137,20 +149,15 @@
             overflow-y: auto;
         }
 
-        #roomBody {
-            width: 90%;
-            max-width: 800px;
-            margin-top: 20px;
-            text-align: center;
-        }
-
         .video-container {
             position: relative;
             padding-bottom: 56.25%; 
             height: 0;
+            width: 90%;
+            max-width: 800px;
             overflow: hidden;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         .video-container iframe {
@@ -167,24 +174,24 @@
 
     <!-- HALAMAN 1 -->
     <div id="page1" class="page">
-        <h1>Selamat Datang</h1>
+        <h1>SELAMAT DATANG</h1>
         <div class="btn-container">
             <button id="startBtn" class="btn-start" onclick="nextPage(2)">START</button>
-            <button id="finishBtn" class="btn-finish" onmouseover="moveFinish()" style="right: 30%;">FINISH</button>
+            <button id="finishBtn" class="btn-finish" onmouseover="moveFinish()" style="left: 200px;">FINISH</button>
         </div>
     </div>
 
     <!-- HALAMAN 2 -->
     <div id="page2" class="page">
-        <h2>Masukkan Nama Lengkap</h2>
-        <input type="text" id="nameInput" class="input-box" placeholder="Siapa namamu?">
-        <button class="btn-start" onclick="validateName()">Masuk</button>
-        <p id="error-name" style="color: red; display: none; margin-top: 10px;">Nama salah!</p>
+        <h2 style="font-weight: bold; margin-bottom: 30px;">KONFIRMASI IDENTITAS</h2>
+        <input type="text" id="nameInput" class="input-box" placeholder="Ketik nama lengkapmu...">
+        <button class="btn-start" onclick="validateName()" style="font-size: 1.1rem; padding: 12px 30px;">MASUK</button>
+        <p id="error-name" style="color: var(--netflix-red); display: none; margin-top: 15px; font-weight: bold;">Identitas tidak cocok. Coba lagi!</p>
     </div>
 
     <!-- HALAMAN 3 -->
     <div id="page3" class="page">
-        <h1 style="font-size: 2.5rem; margin-bottom: 30px;">Who's watching?</h1>
+        <h1 style="font-size: 2.5rem; margin-bottom: 40px; font-weight: bold;">Who's watching?</h1>
         <div class="profile-grid">
             <div class="profile-card" onclick="openRoom('Pantai')">
                 <div class="profile-img" style="background-color: #1e90ff;">🏖️</div>
@@ -213,12 +220,12 @@
         </div>
     </div>
 
-    <!-- HALAMAN 4 (KONTEN ROOM) -->
+    <!-- HALAMAN 4 -->
     <div id="page4" class="page">
-        <h1 id="roomTitle" style="color: var(--netflix-red);">Judul Room</h1>
-        <div id="roomBody"></div>
+        <h1 id="roomTitle" style="color: var(--netflix-red); font-weight: bold; margin-bottom: 20px;"></h1>
+        <div id="roomBody" style="width: 100%; display: flex; justify-content: center;"></div>
         <br>
-        <button class="btn-start" onclick="nextPage(3)" style="font-size: 1rem; padding: 10px 20px;">Kembali Pilih Room</button>
+        <button class="btn-start" onclick="nextPage(3)" style="font-size: 0.9rem; padding: 10px 20px; margin-top: 20px;">KEMBALI</button>
     </div>
 
     <script>
@@ -228,12 +235,13 @@
             const btn = document.getElementById('finishBtn');
             const startBtn = document.getElementById('startBtn');
             
-            const x = Math.random() * (window.innerWidth - 150);
-            const y = Math.random() * (window.innerHeight - 50);
+            const x = Math.random() * (window.innerWidth - 180);
+            const y = Math.random() * (window.innerHeight - 60);
+            
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
 
-            startScale += 0.2;
+            startScale += 0.15;
             startBtn.style.transform = `scale(${startScale})`;
         }
 
@@ -254,33 +262,25 @@
         }
 
         function openRoom(title) {
-            const pin = prompt("Masukkan PIN untuk akses " + title + ":");
+            const pin = prompt("🔐 Masukkan PIN 4-digit:");
             if (pin === "1111") {
                 document.getElementById('roomTitle').innerText = title;
                 let content = "";
 
                 if (title === 'Pantai') {
                     content = `
-                        <p style="margin-bottom:20px;">Ini video kenangan kita di Pantai ✨</p>
                         <div class="video-container">
-                            <iframe 
-                                src="https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792/preview" 
-                                allow="autoplay">
-                            </iframe>
+                            <iframe src="https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792/preview" allow="autoplay"></iframe>
                         </div>
                     `;
                 } else {
-                    content = `
-                        <div style="padding: 40px; border: 2px dashed #555; border-radius: 10px;">
-                            <p>Konten untuk room <b>${title}</b> sedang disiapkan...</p>
-                        </div>
-                    `;
+                    content = `<div style="text-align: center;"><h3>Konten room "${title}" belum tersedia.</h3></div>`;
                 }
 
                 document.getElementById('roomBody').innerHTML = content;
                 nextPage(4);
             } else {
-                alert("PIN Salah!");
+                alert("❌ PIN Salah!");
             }
         }
     </script>
