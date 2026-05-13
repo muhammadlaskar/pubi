@@ -32,6 +32,25 @@
             position: relative;
         }
 
+        /* --- ANIMASI TRANSISI --- */
+        @keyframes profileFadeIn {
+            from { opacity: 0; transform: scale(1.1); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes contentSlideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-profiles {
+            animation: profileFadeIn 0.6s ease-out forwards;
+        }
+
+        .animate-content {
+            animation: contentSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
         /* --- Halaman 1: Welcome --- */
         #page1 { display: flex; }
         #page1 h1 {
@@ -160,7 +179,7 @@
     </div>
 
     <div id="page3" class="page">
-        <div class="profile-selection-container">
+        <div class="profile-selection-container animate-profiles">
             <h1 style="font-size: 2.5rem; margin-bottom: 40px; font-weight: bold;">Who's watching?</h1>
             
             <div class="main-profile">
@@ -200,8 +219,10 @@
     </div>
 
     <div id="page4" class="page">
-        <h1 id="roomTitle" style="color: var(--netflix-red); font-weight: bold; margin-bottom: 20px;"></h1>
-        <div id="roomBody" class="content-card"></div>
+        <div id="roomContainer" class="content-card">
+            <h1 id="roomTitle" style="color: var(--netflix-red); font-weight: bold; margin-bottom: 20px;"></h1>
+            <div id="roomBody"></div>
+        </div>
         <button class="btn-start" onclick="nextPage(3)" style="font-size: 0.9rem; padding: 10px 20px; margin-top: 30px;">KEMBALI</button>
     </div>
 
@@ -222,7 +243,8 @@
 
         function nextPage(pageNumber) {
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-            document.getElementById('page' + pageNumber).style.display = 'flex';
+            const targetPage = document.getElementById('page' + pageNumber);
+            targetPage.style.display = 'flex';
         }
 
         function validateName() {
@@ -244,7 +266,15 @@
                 } else {
                     content = `<p>Konten untuk room "${title}" sedang disiapkan.</p>`;
                 }
+                
                 document.getElementById('roomBody').innerHTML = content;
+                
+                // Menambahkan kelas animasi saat room dibuka
+                const container = document.getElementById('roomContainer');
+                container.classList.remove('animate-content');
+                void container.offsetWidth; // Trigger reflow untuk restart animasi
+                container.classList.add('animate-content');
+                
                 nextPage(4);
             } else { alert("❌ PIN Salah!"); }
         }
