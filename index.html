@@ -42,6 +42,7 @@
             margin-bottom: 50px;
             text-transform: uppercase;
             letter-spacing: 5px;
+            text-align: center;
         }
 
         .btn-container {
@@ -59,6 +60,7 @@
             cursor: pointer;
             border-radius: 4px;
             transition: all 0.3s ease;
+            z-index: 2;
         }
 
         .btn-finish {
@@ -70,6 +72,7 @@
             cursor: pointer;
             border-radius: 4px;
             position: absolute;
+            z-index: 1;
         }
 
         /* --- Halaman 2: Username --- */
@@ -129,8 +132,34 @@
 
         /* --- Halaman 4: Room Content --- */
         #page4 {
-            background-color: var(--soft-white);
-            color: #333;
+            background-color: var(--bg-dark);
+            color: white;
+            overflow-y: auto;
+        }
+
+        #roomBody {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
     </style>
 </head>
@@ -186,10 +215,10 @@
 
     <!-- HALAMAN 4 (KONTEN ROOM) -->
     <div id="page4" class="page">
-        <h1 id="roomTitle">Judul Room</h1>
-        <div id="roomBody">Isi konten ada di sini...</div>
+        <h1 id="roomTitle" style="color: var(--netflix-red);">Judul Room</h1>
+        <div id="roomBody"></div>
         <br>
-        <button class="btn-start" onclick="nextPage(3)">Kembali Pilih Room</button>
+        <button class="btn-start" onclick="nextPage(3)" style="font-size: 1rem; padding: 10px 20px;">Kembali Pilih Room</button>
     </div>
 
     <script>
@@ -200,26 +229,23 @@
             const btn = document.getElementById('finishBtn');
             const startBtn = document.getElementById('startBtn');
             
-            // Gerakkan Finish secara acak
             const x = Math.random() * (window.innerWidth - 150);
             const y = Math.random() * (window.innerHeight - 50);
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
 
-            // Perbesar tombol Start
             startScale += 0.2;
             startBtn.style.transform = `scale(${startScale})`;
         }
 
-        // Navigasi Halaman
         function nextPage(pageNumber) {
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
             document.getElementById('page' + pageNumber).style.display = 'flex';
         }
 
-        // Validasi Nama
         function validateName() {
-            const input = document.getElementById('nameInput').value.toLowerCase();
+            const input = document.getElementById('nameInput').value.toLowerCase().trim();
+            // Menggunakan nama yang kamu minta
             const allowed = "bhytania avrinda pubhyta vanha".toLowerCase();
             
             if (input === allowed) {
@@ -229,12 +255,33 @@
             }
         }
 
-        // Buka Room dengan PIN
         function openRoom(title) {
             const pin = prompt("Masukkan PIN untuk akses " + title + ":");
             if (pin === "1111") {
                 document.getElementById('roomTitle').innerText = title;
-                document.getElementById('roomBody').innerHTML = `<p>Selamat datang di room ${title}. Konten ini masih kosong.</p>`;
+                let content = "";
+
+                if (title === 'Pantai') {
+                    content = `
+                        <p style="margin-bottom:20px;">Ini video kenangan kita di Pantai ✨</p>
+                        <div class="video-container">
+                            <iframe 
+                                src="https://drive.google.com/file/d/1x2h5t9PYB4cJfWCqS9Rkh6OkUH2vKhlY/preview" 
+                                allow="autoplay">
+                            </iframe>
+                        </div>
+                    `;
+                } else {
+                    // Placeholder untuk room lainnya
+                    content = `
+                        <div style="padding: 40px; border: 2px dashed #555; border-radius: 10px;">
+                            <p>Konten untuk room <b>${title}</b> sedang disiapkan...</p>
+                            <p style="font-size: 0.8rem; color: #888;">(Kamu bisa menambahkan foto/video di sini nanti)</p>
+                        </div>
+                    `;
+                }
+
+                document.getElementById('roomBody').innerHTML = content;
                 nextPage(4);
             } else {
                 alert("PIN Salah!");
