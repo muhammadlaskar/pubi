@@ -198,8 +198,11 @@
                     </div>
                     <p style="color: #888;">PANTAI BATU BEKUNG</p>
                 </div>
+                <!-- UPDATE PROFIL TUMPAK SEWU -->
                 <div class="profile-card" onclick="openRoom('TUMPAK SEWU')">
-                    <div class="profile-img" style="background-color: #00ced1; font-size: 3.5rem;">🌊</div>
+                    <div class="profile-img">
+                        <img src="2026_05_14_04_51_IMG_3792.JPG" alt="TUMPAK SEWU">
+                    </div>
                     <p style="color: #888;">TUMPAK SEWU</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('JATIM PARK')">
@@ -259,7 +262,7 @@
             if (pin === "1111") {
                 document.getElementById('roomTitle').innerText = title;
                 let content = "";
-                if (title === 'Pantai') {
+                if (title === 'PANTAI BATU BEKUNG') {
                     content = `<div class="video-container"><iframe src="https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792/preview" allow="autoplay"></iframe></div>`;
                 } else if (title === 'CINTAKU') {
                     content = `<h2>Halaman Spesial ✨</h2><p>Terima kasih sudah selalu ada.</p>`;
@@ -269,10 +272,9 @@
                 
                 document.getElementById('roomBody').innerHTML = content;
                 
-                // Menambahkan kelas animasi saat room dibuka
                 const container = document.getElementById('roomContainer');
                 container.classList.remove('animate-content');
-                void container.offsetWidth; // Trigger reflow untuk restart animasi
+                void container.offsetWidth; 
                 container.classList.add('animate-content');
                 
                 nextPage(4);
