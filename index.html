@@ -33,10 +33,7 @@
         }
 
         /* --- Halaman 1: Welcome --- */
-        #page1 {
-            display: flex;
-        }
-
+        #page1 { display: flex; }
         #page1 h1 {
             font-size: 4.5rem;
             margin-bottom: 60px;
@@ -83,11 +80,7 @@
         }
 
         /* --- Halaman 2: Username --- */
-        #page2 {
-            background-color: var(--soft-white);
-            color: #333;
-        }
-
+        #page2 { background-color: var(--soft-white); color: #333; }
         .input-box {
             padding: 15px;
             width: 350px;
@@ -99,29 +92,13 @@
         }
 
         /* --- Halaman 3: Netflix Room Selection --- */
-        .profile-selection-container {
-            text-align: center;
-            max-width: 1000px;
-        }
-
-        .main-profile {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-
-        .secondary-profiles {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .profile-card {
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
+        .profile-selection-container { text-align: center; max-width: 1000px; }
+        .main-profile { display: flex; justify-content: center; margin-bottom: 40px; }
+        .secondary-profiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        
+        .profile-card { text-align: center; cursor: pointer; transition: 0.3s; }
+        
+        /* Gaya Ikon Profil */
         .profile-img {
             width: 140px;
             height: 140px;
@@ -132,37 +109,45 @@
             font-size: 3.5rem;
             margin-bottom: 10px;
             border: 4px solid transparent;
+            overflow: hidden; /* Agar foto tidak keluar dari kotak */
+            background-color: #555;
         }
 
-        .profile-card:hover .profile-img {
-            border-color: white;
-            transform: scale(1.05);
+        /* Khusus untuk Foto Cover */
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Agar foto memenuhi kotak secara rapi */
         }
+
+        .profile-card:hover .profile-img { border-color: white; transform: scale(1.05); }
 
         /* --- Halaman 4: Room Content --- */
+        #page4 { overflow-y: auto; padding: 40px 0; }
+        .content-card {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
         .video-container {
             position: relative;
             padding-bottom: 56.25%; 
             height: 0;
-            width: 90%;
-            max-width: 800px;
+            width: 100%;
             overflow: hidden;
             border-radius: 10px;
         }
-
         .video-container iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
+            top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
     </style>
 </head>
 <body>
 
-    <!-- HALAMAN 1 -->
     <div id="page1" class="page">
         <h1>SELAMAT DATANG</h1>
         <div class="btn-container">
@@ -171,7 +156,6 @@
         </div>
     </div>
 
-    <!-- HALAMAN 2 -->
     <div id="page2" class="page">
         <h2 style="font-weight: bold; margin-bottom: 30px;">KONFIRMASI IDENTITAS</h2>
         <input type="text" id="nameInput" class="input-box" placeholder="Ketik nama lengkapmu...">
@@ -179,14 +163,16 @@
         <p id="error-name" style="color: var(--netflix-red); display: none; margin-top: 15px;">Nama tidak cocok!</p>
     </div>
 
-    <!-- HALAMAN 3 -->
     <div id="page3" class="page">
         <div class="profile-selection-container">
             <h1 style="font-size: 2.5rem; margin-bottom: 40px; font-weight: bold;">Who's watching?</h1>
             
+            <!-- Posisi Atas: CINTAKU dengan FOTO -->
             <div class="main-profile">
                 <div class="profile-card" onclick="openRoom('CINTAKU')">
-                    <div class="profile-img" style="background-color: #e91e63; width: 170px; height: 170px;">💖</div>
+                    <div class="profile-img" style="width: 170px; height: 170px;">
+                        <img src="2026_05_14_03_59_IMG_3788.JPG" alt="Cintaku">
+                    </div>
                     <p style="font-size: 1.2rem; color: white;">CINTAKU</p>
                 </div>
             </div>
@@ -212,20 +198,15 @@
         </div>
     </div>
 
-    <!-- HALAMAN 4 -->
     <div id="page4" class="page">
         <h1 id="roomTitle" style="color: var(--netflix-red); font-weight: bold; margin-bottom: 20px;"></h1>
-        <div id="roomBody" style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;"></div>
+        <div id="roomBody" class="content-card"></div>
         <button class="btn-start" onclick="nextPage(3)" style="font-size: 0.9rem; padding: 10px 20px; margin-top: 30px;">KEMBALI</button>
     </div>
 
     <script>
         let startScale = 1;
-
-        // Reset otomatis ke halaman 1 saat refresh
-        window.onload = function() {
-            nextPage(1);
-        };
+        window.onload = function() { nextPage(1); };
 
         function moveFinish() {
             const btn = document.getElementById('finishBtn');
@@ -246,11 +227,8 @@
         function validateName() {
             const input = document.getElementById('nameInput').value.toLowerCase().trim();
             const allowed = "bhytania avrinda pubhyta vanha".toLowerCase();
-            if (input === allowed) {
-                nextPage(3);
-            } else {
-                document.getElementById('error-name').style.display = 'block';
-            }
+            if (input === allowed) { nextPage(3); } 
+            else { document.getElementById('error-name').style.display = 'block'; }
         }
 
         function openRoom(title) {
@@ -261,15 +239,16 @@
                 if (title === 'Pantai') {
                     content = `<div class="video-container"><iframe src="https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792/preview" allow="autoplay"></iframe></div>`;
                 } else if (title === 'CINTAKU') {
-                    content = `<div style="text-align: center;"><h2>Room Spesial ✨</h2><p>Terima kasih sudah selalu ada.</p></div>`;
+                    content = `
+                        <h2>Halaman Spesial ✨</h2>
+                        <p>Terima kasih sudah selalu ada di sampingku. Kamu adalah hal terindah yang pernah hadir.</p>
+                    `;
                 } else {
-                    content = `<div style="text-align: center;"><h3>Konten belum tersedia.</h3></div>`;
+                    content = `<p>Konten belum tersedia.</p>`;
                 }
                 document.getElementById('roomBody').innerHTML = content;
                 nextPage(4);
-            } else {
-                alert("❌ PIN Salah!");
-            }
+            } else { alert("❌ PIN Salah!"); }
         }
     </script>
 </body>
