@@ -182,7 +182,7 @@
     </div>
 
     <div id="page2" class="page">
-        <h2 style="font-weight: bold; margin-bottom: 30px;">KONFIRMASI IDENTITAS</h2>
+        <h2 style="font-weight: bold; margin-bottom: 30px;">MASUKAN NAMA LENGKAP BIDADARIKU</h2>
         <input type="text" id="nameInput" class="input-box" placeholder="Ketik nama lengkapmu...">
         <button class="btn-start" onclick="validateName()" style="font-size: 1.1rem; padding: 12px 30px;">MASUK</button>
         <p id="error-name" style="color: var(--netflix-red); display: none; margin-top: 15px; font-weight: bold;">Identitas tidak cocok!</p>
@@ -203,13 +203,9 @@
                 <div class="profile-img" style="background-color: #ff4500;">🎡</div>
                 <p>Jatim Park</p>
             </div>
-            <div class="profile-card" onclick="openRoom('Surabaya')">
-                <div class="profile-img" style="background-color: #32cd32;">🏙️</div>
-                <p>Surabaya</p>
-            </div>
-            <div class="profile-card" onclick="openRoom('Dusun Kuliner')">
-                <div class="profile-img" style="background-color: #daa520;">🍲</div>
-                <p>Dusun Kuliner</p>
+            <div class="profile-card" onclick="openRoom('CINTAKU')">
+                <div class="profile-img" style="background-color: #e91e63;">💖</div>
+                <p>CINTAKU</p>
             </div>
             <div class="profile-card" onclick="openRoom('Dancok Cafe')">
                 <div class="profile-img" style="background-color: #8b4513;">☕</div>
@@ -229,7 +225,6 @@
     <script>
         let startScale = 1;
 
-        // FUNGSI MEMERIKSA STATUS SAAT REFRESH
         window.onload = function() {
             const lastPage = localStorage.getItem('activePage');
             if (lastPage) {
@@ -253,8 +248,6 @@
         function nextPage(pageNumber, save = true) {
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
             document.getElementById('page' + pageNumber).style.display = 'flex';
-            
-            // Simpan posisi halaman ke browser
             if(save) localStorage.setItem('activePage', pageNumber);
         }
 
@@ -275,6 +268,8 @@
                 let content = "";
                 if (title === 'Pantai') {
                     content = `<div class="video-container"><iframe src="https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792/preview" allow="autoplay"></iframe></div>`;
+                } else if (title === 'CINTAKU') {
+                    content = `<div style="text-align: center;"><h3>Room khusus untukmu. ❤️</h3><p>Konten spesial sedang disiapkan...</p></div>`;
                 } else {
                     content = `<div style="text-align: center;"><h3>Konten room "${title}" belum tersedia.</h3></div>`;
                 }
