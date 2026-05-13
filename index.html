@@ -61,8 +61,8 @@
             font-weight: bold;
             cursor: pointer;
             border-radius: 6px;
-            z-index: 2;
             transition: transform 0.3s;
+            z-index: 2;
         }
 
         .btn-finish {
@@ -76,7 +76,6 @@
             border-radius: 6px;
             position: absolute;
             z-index: 1;
-            transition: 0.1s;
         }
 
         /* --- Halaman 2: Username --- */
@@ -98,7 +97,6 @@
         
         .profile-card { text-align: center; cursor: pointer; transition: 0.3s; }
         
-        /* Gaya Ikon Profil */
         .profile-img {
             width: 140px;
             height: 140px;
@@ -106,18 +104,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 3.5rem;
             margin-bottom: 10px;
             border: 4px solid transparent;
-            overflow: hidden; /* Agar foto tidak keluar dari kotak */
-            background-color: #555;
+            overflow: hidden;
+            background-color: #333;
         }
 
-        /* Khusus untuk Foto Cover */
         .profile-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Agar foto memenuhi kotak secara rapi */
+            object-fit: cover;
         }
 
         .profile-card:hover .profile-img { border-color: white; transform: scale(1.05); }
@@ -167,7 +163,6 @@
         <div class="profile-selection-container">
             <h1 style="font-size: 2.5rem; margin-bottom: 40px; font-weight: bold;">Who's watching?</h1>
             
-            <!-- Posisi Atas: CINTAKU dengan FOTO -->
             <div class="main-profile">
                 <div class="profile-card" onclick="openRoom('CINTAKU')">
                     <div class="profile-img" style="width: 170px; height: 170px;">
@@ -179,19 +174,25 @@
 
             <div class="secondary-profiles">
                 <div class="profile-card" onclick="openRoom('Pantai')">
-                    <div class="profile-img" style="background-color: #1e90ff;">🏖️</div>
+                    <div class="profile-img">
+                        <img src="2026_05_14_04_01_IMG_3789.JPG" alt="Pantai">
+                    </div>
                     <p style="color: #888;">Pantai</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('Air Terjun')">
-                    <div class="profile-img" style="background-color: #00ced1;">🌊</div>
+                    <div class="profile-img" style="background-color: #00ced1; font-size: 3.5rem;">🌊</div>
                     <p style="color: #888;">Air Terjun</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('Jatim Park')">
-                    <div class="profile-img" style="background-color: #ff4500;">🎡</div>
+                    <div class="profile-img">
+                        <img src="2026_05_14_04_02_IMG_3790.JPG" alt="Jatim Park">
+                    </div>
                     <p style="color: #888;">Jatim Park</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('Dancok Cafe')">
-                    <div class="profile-img" style="background-color: #8b4513;">☕</div>
+                    <div class="profile-img">
+                        <img src="2026_05_14_04_03_IMG_3791.JPG" alt="Dancok Cafe">
+                    </div>
                     <p style="color: #888;">Dancok Cafe</p>
                 </div>
             </div>
@@ -239,12 +240,9 @@
                 if (title === 'Pantai') {
                     content = `<div class="video-container"><iframe src="https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792/preview" allow="autoplay"></iframe></div>`;
                 } else if (title === 'CINTAKU') {
-                    content = `
-                        <h2>Halaman Spesial ✨</h2>
-                        <p>Terima kasih sudah selalu ada di sampingku. Kamu adalah hal terindah yang pernah hadir.</p>
-                    `;
+                    content = `<h2>Halaman Spesial ✨</h2><p>Terima kasih sudah selalu ada.</p>`;
                 } else {
-                    content = `<p>Konten belum tersedia.</p>`;
+                    content = `<p>Konten untuk room "${title}" sedang disiapkan.</p>`;
                 }
                 document.getElementById('roomBody').innerHTML = content;
                 nextPage(4);
