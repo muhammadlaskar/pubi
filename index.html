@@ -25,11 +25,12 @@
         .page {
             display: none;
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             position: relative;
+            padding: 20px 0;
         }
 
         /* --- ANIMASI TRANSISI --- */
@@ -43,44 +44,29 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .animate-profiles {
-            animation: profileFadeIn 0.6s ease-out forwards;
-        }
+        .animate-profiles { animation: profileFadeIn 0.6s ease-out forwards; }
+        .animate-content { animation: contentSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
 
-        .animate-content {
-            animation: contentSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        /* --- Halaman 1: Welcome --- */
-        #page1 { display: flex; }
+        /* --- Welcome & Login --- */
         #page1 h1 {
-            font-size: 4.5rem;
-            margin-bottom: 60px;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 40px;
             text-transform: uppercase;
-            letter-spacing: 8px;
+            letter-spacing: 5px;
             color: var(--netflix-red);
             font-weight: 900;
             text-align: center;
-        }
-
-        .btn-container {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-            position: relative;
-            min-height: 100px;
         }
 
         .btn-start {
             background-color: var(--netflix-red);
             color: white;
             border: none;
-            padding: 18px 50px;
-            font-size: 1.6rem;
+            padding: 15px 40px;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             border-radius: 6px;
-            transition: transform 0.3s;
             z-index: 2;
         }
 
@@ -88,8 +74,8 @@
             background-color: #333;
             color: #aaa;
             border: none;
-            padding: 18px 50px;
-            font-size: 1.6rem;
+            padding: 15px 40px;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             border-radius: 6px;
@@ -97,66 +83,59 @@
             z-index: 1;
         }
 
-        /* --- Halaman 2: Username --- */
         #page2 { background-color: var(--soft-white); color: #333; }
         .input-box {
             padding: 15px;
-            width: 350px;
+            width: 80%;
+            max-width: 350px;
             border: 2px solid #ddd;
             border-radius: 8px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 20px;
             text-align: center;
         }
 
-        /* --- Halaman 3: Netflix Room Selection --- */
-        .profile-selection-container { text-align: center; max-width: 1000px; }
-        .main-profile { display: flex; justify-content: center; margin-bottom: 40px; }
-        .secondary-profiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        
-        .profile-card { text-align: center; cursor: pointer; transition: 0.3s; }
+        /* --- Room Selection Grid --- */
+        .profile-selection-container { text-align: center; width: 100%; max-width: 1000px; }
+        .secondary-profiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            justify-items: center;
+        }
         
         .profile-img {
-            width: 140px;
-            height: 140px;
+            width: clamp(100px, 25vw, 140px);
+            height: clamp(100px, 25vw, 140px);
             border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-            border: 4px solid transparent;
+            border: 3px solid transparent;
             overflow: hidden;
             background-color: #333;
+            transition: 0.3s;
         }
-
-        .profile-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
+        .profile-img img { width: 100%; height: 100%; object-fit: cover; }
         .profile-card:hover .profile-img { border-color: white; transform: scale(1.05); }
+        .profile-card p { font-size: 0.9rem; margin-top: 8px; color: #888; }
 
-        /* --- Halaman 4: Room Content --- */
-        #page4 { overflow-y: auto; padding: 40px 0; }
+        /* --- Responsive Video Fix --- */
+        #page4 { overflow-y: auto; height: auto; }
         .content-card {
-            width: 90%;
-            max-width: 600px;
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 15px;
+            width: 95%;
+            max-width: 800px;
+            margin: 20px auto;
             text-align: center;
         }
-        .video-container {
+        .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; 
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
-            width: 100%;
+            margin-bottom: 25px;
+            border-radius: 12px;
             overflow: hidden;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .video-container iframe {
+        .video-wrapper iframe {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
@@ -168,54 +147,44 @@
         <h1>SELAMAT DATANG</h1>
         <div class="btn-container">
             <button id="startBtn" class="btn-start" onclick="nextPage(2)">START</button>
-            <button id="finishBtn" class="btn-finish" onmouseover="moveFinish()" style="left: 200px;">FINISH</button>
+            <button id="finishBtn" class="btn-finish" onmouseover="moveFinish()" style="left: 150px;">FINISH</button>
         </div>
     </div>
 
     <div id="page2" class="page">
-        <h2 style="font-weight: bold; margin-bottom: 30px;">DI ISI YA BIDADARIKU</h2>
+        <h2 style="font-weight: bold; margin-bottom: 30px; text-align: center;">DI ISI YA BIDADARIKU</h2>
         <input type="text" id="nameInput" class="input-box" placeholder="Ketikan nama lengkapmu...">
-        <button class="btn-start" onclick="validateName()" style="font-size: 1.1rem; padding: 12px 30px;">MASUK</button>
+        <button class="btn-start" onclick="validateName()">MASUK</button>
         <p id="error-name" style="color: var(--netflix-red); display: none; margin-top: 15px;">Nama tidak cocok!</p>
     </div>
 
     <div id="page3" class="page">
         <div class="profile-selection-container animate-profiles">
-            <h1 style="font-size: 2.5rem; margin-bottom: 40px; font-weight: bold;">Who's watching?</h1>
-            
-            <div class="main-profile">
+            <h1 style="font-size: 2rem; margin-bottom: 30px; font-weight: bold;">Who's watching?</h1>
+            <div class="main-profile" style="margin-bottom: 30px; display: flex; justify-content: center;">
                 <div class="profile-card" onclick="openRoom('CINTAKU')">
-                    <div class="profile-img" style="width: 170px; height: 170px;">
+                    <div class="profile-img" style="width: 160px; height: 160px;">
                         <img src="2026_05_14_03_59_IMG_3788.JPG" alt="Cintaku">
                     </div>
-                    <p style="font-size: 1.2rem; color: white;">CINTAKU</p>
+                    <p style="font-size: 1.1rem; color: white;">CINTAKU</p>
                 </div>
             </div>
-
             <div class="secondary-profiles">
                 <div class="profile-card" onclick="openRoom('PANTAI BATU BEKUNG')">
-                    <div class="profile-img">
-                        <img src="2026_05_14_04_01_IMG_3789.JPG" alt="PANTAI BATU BEKUNG">
-                    </div>
-                    <p style="color: #888;">PANTAI BATU BEKUNG</p>
+                    <div class="profile-img"><img src="2026_05_14_04_01_IMG_3789.JPG"></div>
+                    <p>PANTAI BATU BEKUNG</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('TUMPAK SEWU')">
-                    <div class="profile-img">
-                        <img src="2026_05_14_04_51_IMG_3792.JPG" alt="TUMPAK SEWU">
-                    </div>
-                    <p style="color: #888;">TUMPAK SEWU</p>
+                    <div class="profile-img"><img src="2026_05_14_04_51_IMG_3792.JPG"></div>
+                    <p>TUMPAK SEWU</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('JATIM PARK')">
-                    <div class="profile-img">
-                        <img src="2026_05_14_04_02_IMG_3790.JPG" alt="JATIM PARK">
-                    </div>
-                    <p style="color: #888;">JATIM PARK</p>
+                    <div class="profile-img"><img src="2026_05_14_04_02_IMG_3790.JPG"></div>
+                    <p>JATIM PARK</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('DANCOK CAFE')">
-                    <div class="profile-img">
-                        <img src="2026_05_14_04_03_IMG_3791.JPG" alt="DANCOK CAFE">
-                    </div>
-                    <p style="color: #888;">DANCOK CAFE</p>
+                    <div class="profile-img"><img src="2026_05_14_04_03_IMG_3791.JPG"></div>
+                    <p>DANCOK CAFE</p>
                 </div>
             </div>
         </div>
@@ -226,7 +195,7 @@
             <h1 id="roomTitle" style="color: var(--netflix-red); font-weight: bold; margin-bottom: 20px;"></h1>
             <div id="roomBody"></div>
         </div>
-        <button class="btn-start" onclick="nextPage(3)" style="font-size: 0.9rem; padding: 10px 20px; margin-top: 30px;">KEMBALI</button>
+        <button class="btn-start" onclick="nextPage(3)" style="font-size: 0.9rem; padding: 10px 20px; margin: 30px 0;">KEMBALI</button>
     </div>
 
     <script>
@@ -235,62 +204,51 @@
 
         function moveFinish() {
             const btn = document.getElementById('finishBtn');
-            const startBtn = document.getElementById('startBtn');
-            const x = Math.random() * (window.innerWidth - 180);
-            const y = Math.random() * (window.innerHeight - 60);
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 50);
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
-            startScale += 0.15;
-            startBtn.style.transform = `scale(${startScale})`;
+            startScale += 0.1;
+            document.getElementById('startBtn').style.transform = `scale(${startScale})`;
         }
 
         function nextPage(pageNumber) {
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-            const targetPage = document.getElementById('page' + pageNumber);
-            targetPage.style.display = 'flex';
+            document.getElementById('page' + pageNumber).style.display = 'flex';
+            window.scrollTo(0,0);
         }
 
         function validateName() {
             const input = document.getElementById('nameInput').value.toLowerCase().trim();
-            const allowed = "bhytania avrinda pubhyta vanha".toLowerCase();
-            if (input === allowed) { nextPage(3); } 
+            if (input === "bhytania avrinda pubhyta vanha") { nextPage(3); } 
             else { document.getElementById('error-name').style.display = 'block'; }
         }
 
+        function createIframe(src) {
+            return `<div class="video-wrapper"><iframe src="${src}/preview" allow="autoplay" allowfullscreen="true"></iframe></div>`;
+        }
+
         function openRoom(title) {
-            const pin = prompt("🔐 Masukkan PIN 4-digit:");
+            const pin = prompt("🔐 PIN 4-digit:");
             if (pin === "1111") {
                 document.getElementById('roomTitle').innerText = title;
-                let content = "";
-                if (title === 'PANTAI BATU BEKUNG') {
-                    // MENAMBAHKAN KEDUA VIDEO BARU
-                    content = `
-                        <div class="video-container">
-                            <iframe 
-                                src="https://drive.google.com/file/d/1z4QYoUCukYF1RTY-BnAauBNArRGjsf1p/preview" 
-                                allow="autoplay" allowfullscreen="true">
-                            </iframe>
-                        </div>
-                        <div class="video-container">
-                            <iframe 
-                                src="https://drive.google.com/file/d/1m5GIKT7KUkGkQy8tuphcjGami00YdgSy/preview" 
-                                allow="autoplay" allowfullscreen="true">
-                            </iframe>
-                        </div>
-                    `;
-                } else if (title === 'CINTAKU') {
-                    content = `<h2>Halaman Spesial ✨</h2><p>Terima kasih sudah selalu ada.</p>`;
-                } else {
-                    content = `<p>Konten untuk room "${title}" sedang disiapkan.</p>`;
-                }
+                let body = document.getElementById('roomBody');
                 
-                document.getElementById('roomBody').innerHTML = content;
+                if (title === 'PANTAI BATU BEKUNG') {
+                    body.innerHTML = 
+                        createIframe("https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792") +
+                        createIframe("https://drive.google.com/file/d/1z4QYoUCukYF1RTY-BnAauBNArRGjsf1p") +
+                        createIframe("https://drive.google.com/file/d/1m5GIKT7KUkGkQy8tuphcjGami00YdgSy");
+                } else if (title === 'CINTAKU') {
+                    body.innerHTML = `<h2>Halaman Spesial ✨</h2><p>Terima kasih sudah selalu ada.</p>`;
+                } else {
+                    body.innerHTML = `<p>Konten sedang disiapkan.</p>`;
+                }
                 
                 const container = document.getElementById('roomContainer');
                 container.classList.remove('animate-content');
                 void container.offsetWidth; 
                 container.classList.add('animate-content');
-                
                 nextPage(4);
             } else { alert("❌ PIN Salah!"); }
         }
