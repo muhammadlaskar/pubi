@@ -20,7 +20,6 @@
             background-color: var(--bg-dark);
             color: white;
             overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .page {
@@ -41,13 +40,7 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        @keyframes contentSlideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .animate-profiles { animation: profileFadeIn 0.6s ease-out forwards; }
-        .animate-content { animation: contentSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
 
         /* --- Halaman 1: Welcome --- */
         #page1 h1 {
@@ -58,7 +51,6 @@
             color: var(--netflix-red);
             font-weight: 900;
             text-align: center;
-            padding: 0 20px;
         }
 
         .btn-start {
@@ -70,11 +62,8 @@
             font-weight: bold;
             cursor: pointer;
             border-radius: 4px;
-            transition: 0.2s;
             text-transform: uppercase;
         }
-
-        .btn-start:active { transform: scale(0.95); }
 
         /* --- Halaman 2: Username --- */
         #page2 { background-color: var(--soft-white); color: #333; }
@@ -87,98 +76,92 @@
             font-size: 1rem;
             margin-bottom: 20px;
             text-align: center;
-            outline-color: var(--netflix-red);
         }
 
-        /* --- Room Selection (Netflix Style) --- */
+        /* --- Room Selection --- */
         .profile-selection-container { text-align: center; width: 100%; padding: 0 10px; }
-        
         .main-profile { margin-bottom: 40px; display: flex; justify-content: center; }
-        
         .secondary-profiles {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
             max-width: 400px;
             margin: 0 auto;
-            padding: 0 15px;
         }
 
-        .profile-card { text-align: center; cursor: pointer; text-decoration: none; color: inherit; }
-        
+        .profile-card { text-align: center; cursor: pointer; color: inherit; text-decoration: none; }
         .profile-img {
             width: 100%;
             aspect-ratio: 1/1;
             border-radius: 4px;
             overflow: hidden;
             background-color: #333;
-            transition: 0.3s;
             border: 2px solid transparent;
+            transition: 0.3s;
         }
-
-        /* Ukuran khusus profil utama */
         .main-profile .profile-img { width: 160px; height: 160px; }
-
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-card:hover .profile-img { border-color: white; transform: scale(1.05); }
-        .profile-card p { font-size: 0.75rem; margin-top: 10px; color: #a3a3a3; text-transform: uppercase; font-weight: bold; }
+        .profile-card:hover .profile-img { border-color: white; }
+        .profile-card p { font-size: 0.75rem; margin-top: 10px; color: #a3a3a3; font-weight: bold; }
 
-        /* --- Room Content --- */
-        #page4 { overflow-y: auto; background-color: var(--bg-dark); display: block; padding-top: 60px; }
-        .content-card { width: 100%; padding: 0 15px; box-sizing: border-box; }
+        /* --- Room Content (Video Fix) --- */
+        #page4 { overflow-y: auto; background-color: #000; display: block; padding-top: 70px; }
+        .nav-header {
+            position: fixed;
+            top: 0; width: 100%; height: 60px;
+            background: rgba(0,0,0,0.9);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; box-sizing: border-box; z-index: 100;
+        }
         
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 177.78%; /* Aspect ratio 9:16 untuk video portrait HP */
-            height: 0;
-            margin-bottom: 30px;
-            border-radius: 8px;
-            overflow: hidden;
+        .video-container-fixed {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
             background: #000;
         }
 
-        /* Jika video landscape, gunakan ini */
-        .video-wrapper.landscape { padding-bottom: 56.25%; }
+        /* Menggunakan aspek rasio otomatis agar tidak memotong kontrol */
+        .video-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9; /* Standar untuk Landscape */
+            background: #000;
+        }
 
-        .video-wrapper iframe {
+        /* Khusus video Portrait (Tegak) jika diperlukan */
+        .video-box.portrait {
+            aspect-ratio: 9 / 16;
+        }
+
+        .video-box iframe {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
 
-        .nav-header {
-            position: fixed;
-            top: 0; width: 100%; height: 60px;
-            background: rgba(0,0,0,0.8);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; box-sizing: border-box; z-index: 100;
-        }
-
-        .btn-back { color: white; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+        .btn-back { color: white; background: none; border: none; font-size: 1.5rem; }
     </style>
 </head>
 <body>
 
-    <!-- HALAMAN 1 -->
     <div id="page1" class="page">
         <h1>SELAMAT DATANG</h1>
         <button class="btn-start" onclick="nextPage(2)">START</button>
     </div>
 
-    <!-- HALAMAN 2 -->
     <div id="page2" class="page">
-        <h2 style="font-weight: bold; margin-bottom: 30px; text-align: center;">DI ISI YA BIDADARIKU</h2>
+        <h2 style="margin-bottom: 30px;">DI ISI YA BIDADARIKU</h2>
         <input type="text" id="nameInput" class="input-box" placeholder="Ketikan nama lengkapmu...">
-        <button class="btn-start" onclick="validateName()" style="font-size: 1rem;">MASUK</button>
-        <p id="error-name" style="color: var(--netflix-red); display: none; margin-top: 15px; font-size: 0.9rem;">Nama tidak cocok!</p>
+        <button class="btn-start" onclick="validateName()">MASUK</button>
+        <p id="error-name" style="color: var(--netflix-red); display: none; margin-top: 15px;">Nama tidak cocok!</p>
     </div>
 
-    <!-- HALAMAN 3 -->
     <div id="page3" class="page">
         <div class="profile-selection-container animate-profiles">
-            <h1 style="font-size: 1.8rem; margin-bottom: 30px; font-weight: bold;">Who's watching?</h1>
+            <h1 style="font-size: 1.8rem; margin-bottom: 30px;">Who's watching?</h1>
             <div class="main-profile">
                 <div class="profile-card" onclick="openRoom('CINTAKU')">
-                    <div class="profile-img"><img src="2026_05_14_03_59_IMG_3788.JPG" alt="Cintaku"></div>
+                    <div class="profile-img"><img src="2026_05_14_03_59_IMG_3788.JPG"></div>
                     <p>CINTAKU</p>
                 </div>
             </div>
@@ -203,21 +186,19 @@
         </div>
     </div>
 
-    <!-- HALAMAN 4 -->
     <div id="page4" class="page">
         <div class="nav-header">
             <button class="btn-back" onclick="nextPage(3)">←</button>
-            <span id="roomTitle" style="font-weight: bold; letter-spacing: 1px;"></span>
+            <span id="roomTitle"></span>
             <div style="width: 24px;"></div>
         </div>
-        <div id="roomBody" class="content-card animate-content"></div>
+        <div id="roomBody" style="padding: 10px;"></div>
     </div>
 
     <script>
         function nextPage(pageNumber) {
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-            const target = document.getElementById('page' + pageNumber);
-            target.style.display = (pageNumber === 4) ? 'block' : 'flex';
+            document.getElementById('page' + pageNumber).style.display = (pageNumber === 4) ? 'block' : 'flex';
             window.scrollTo(0,0);
         }
 
@@ -227,10 +208,12 @@
             else { document.getElementById('error-name').style.display = 'block'; }
         }
 
-        function createVideo(src, landscape = false) {
-            const type = landscape ? 'landscape' : '';
-            return `<div class="video-wrapper ${type}">
-                <iframe src="${src}/preview" allow="autoplay; fullscreen" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+        function createVid(src, isPortrait = false) {
+            const portraitClass = isPortrait ? 'portrait' : '';
+            return `<div class="video-container-fixed">
+                <div class="video-box ${portraitClass}">
+                    <iframe src="${src}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                </div>
             </div>`;
         }
 
@@ -242,13 +225,11 @@
                 
                 if (title === 'PANTAI BATU BEKUNG') {
                     body.innerHTML = 
-                        createVideo("https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792") +
-                        createVideo("https://drive.google.com/file/d/1z4QYoUCukYF1RTY-BnAauBNArRGjsf1p") +
-                        createVideo("https://drive.google.com/file/d/1m5GIKT7KUkGkQy8tuphcjGami00YdgSy");
-                } else if (title === 'CINTAKU') {
-                    body.innerHTML = `<div style="padding: 40px 20px; text-align: center;"><h2>Halaman Spesial ✨</h2><p>Terima kasih sudah selalu ada di sampingku.</p></div>`;
+                        createVid("https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792", true) + // Video 1 Portrait
+                        createVid("https://drive.google.com/file/d/1z4QYoUCukYF1RTY-BnAauBNArRGjsf1p", false) + // Video 2 Landscape
+                        createVid("https://drive.google.com/file/d/1m5GIKT7KUkGkQy8tuphcjGami00YdgSy", false);  // Video 3 Landscape
                 } else {
-                    body.innerHTML = `<div style="padding: 40px 20px; text-align: center;"><p>Konten sedang disiapkan untuk bidadariku.</p></div>`;
+                    body.innerHTML = `<div style="text-align:center; padding-top:50px;">Konten sedang disiapkan.</div>`;
                 }
                 nextPage(4);
             } else if (pin !== null) { alert("❌ PIN Salah!"); }
