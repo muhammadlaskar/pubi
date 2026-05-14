@@ -18,14 +18,13 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: var(--bg-dark);
             color: white;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
+            overflow: hidden; /* Mencegah scroll pada halaman utama */
         }
 
         .page {
             display: none;
             width: 100%;
-            min-height: 100vh;
+            height: 100vh;
             justify-content: center;
             align-items: center;
             flex-direction: column;
@@ -39,53 +38,55 @@
         .input-box { padding: 15px; width: 85%; max-width: 320px; border: 2px solid #ddd; border-radius: 4px; text-align: center; }
 
         /* --- Room Selection --- */
-        .profile-selection-container { text-align: center; width: 100%; padding: 0 10px; }
+        #page3 { overflow-y: auto; display: none; }
+        .profile-selection-container { text-align: center; width: 100%; padding: 40px 10px; box-sizing: border-box; }
         .main-profile { margin-bottom: 40px; display: flex; justify-content: center; }
         .secondary-profiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 400px; margin: 0 auto; padding: 0 15px; }
         .profile-card { text-align: center; cursor: pointer; color: inherit; text-decoration: none; }
-        
-        .profile-img { 
-            width: 100%; 
-            aspect-ratio: 1/1; 
-            border-radius: 4px; 
-            overflow: hidden; 
-            background-color: #333; 
-            border: 2px solid transparent; 
-            transition: 0.3s; 
-        }
-
-        /* Thumbnail Khusus Pantai Batu Bekung (Portrait Aspect) */
+        .profile-img { width: 100%; aspect-ratio: 1/1; border-radius: 4px; overflow: hidden; background-color: #333; border: 2px solid transparent; transition: 0.3s; }
         .portrait-thumb { aspect-ratio: 2/3 !important; }
-
         .main-profile .profile-img { width: 160px; height: 160px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-card:hover .profile-img { border-color: white; transform: scale(1.05); }
+        .profile-card:hover .profile-img { border-color: white; }
         .profile-card p { font-size: 0.75rem; margin-top: 10px; color: #a3a3a3; text-transform: uppercase; font-weight: bold; }
 
-        /* --- Portrait Video Layout (Page 4) --- */
-        #page4 { display: block; background-color: #000; }
-        .nav-header { position: fixed; top: 0; width: 100%; height: 60px; display: flex; align-items: center; padding: 0 20px; z-index: 100; background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent); }
-        .btn-back { color: white; background: none; border: none; font-size: 1.8rem; cursor: pointer; }
+        /* --- FULL SCREEN VIDEO LAYOUT (Page 4) --- */
+        #page4 { 
+            background-color: #000; 
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .nav-header { 
+            position: absolute; 
+            top: 0; width: 100%; height: 70px; 
+            display: flex; align-items: center; 
+            padding: 0 20px; z-index: 100; 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); 
+            box-sizing: border-box;
+            pointer-events: none; /* Agar tidak menghalangi klik video */
+        }
+
+        .btn-back { 
+            color: white; background: none; border: none; 
+            font-size: 2rem; cursor: pointer; 
+            pointer-events: auto; /* Tombol kembali tetap bisa diklik */
+        }
         
-        .video-player-container {
-            width: 100%;
+        .video-fullscreen-container {
+            width: 100vw;
             height: 100vh;
+            background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #000;
         }
 
-        .portrait-frame {
-            position: relative;
+        /* Iframe dibuat sedikit lebih besar untuk menyembunyikan scrollbar internal jika ada */
+        .video-fullscreen-container iframe {
             width: 100%;
             height: 100%;
-            max-width: 500px;
-        }
-
-        .portrait-frame iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; border: 0;
+            border: 0;
         }
     </style>
 </head>
@@ -112,9 +113,8 @@
                 </div>
             </div>
             <div class="secondary-profiles">
-                <!-- MENGGUNAKAN FOTO TERBARU SEBAGAI THUMBNAIL -->
                 <div class="profile-card" onclick="openRoom('PANTAI BATU BEKUNG')">
-                    <div class="profile-img portrait-thumb"><img src="2026_05_14_23_52_IMG_3806.JPG" alt="PANTAI BATU BEKUNG"></div>
+                    <div class="profile-img portrait-thumb"><img src="2026_05_14_23_52_IMG_3806.JPG"></div>
                     <p>PANTAI BATU BEKUNG</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('TUMPAK SEWU')">
@@ -136,12 +136,10 @@
     <div id="page4" class="page">
         <div class="nav-header">
             <button class="btn-back" onclick="nextPage(3)">←</button>
-            <span id="roomTitle" style="font-weight: bold; margin-left: 15px;"></span>
+            <span id="roomTitle" style="font-weight: bold; margin-left: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);"></span>
         </div>
-        <div class="video-player-container">
-            <div class="portrait-frame">
-                <iframe id="videoIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
-            </div>
+        <div class="video-fullscreen-container">
+            <iframe id="videoIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -149,7 +147,8 @@
         function nextPage(pageNumber) {
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
             const target = document.getElementById('page' + pageNumber);
-            target.style.display = (pageNumber === 4) ? 'block' : 'flex';
+            target.style.display = (pageNumber === 3) ? 'block' : 'flex';
+            if (pageNumber === 3) target.style.display = 'block'; 
         }
 
         function validateName() {
@@ -164,7 +163,6 @@
                 document.getElementById('roomTitle').innerText = title;
                 const iframe = document.getElementById('videoIframe');
                 
-                // MENGGUNAKAN LINK VIDEO TERBARU
                 if (title === 'PANTAI BATU BEKUNG') {
                     iframe.src = "https://drive.google.com/file/d/1ci9uiSL6AkFV33tNYzIbLD7aD7M_fdVu/preview";
                 } else if (title === 'TUMPAK SEWU') {
