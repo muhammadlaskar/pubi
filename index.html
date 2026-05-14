@@ -30,120 +30,76 @@
             align-items: center;
             flex-direction: column;
             position: relative;
-            padding: 20px 0;
             box-sizing: border-box;
         }
 
-        /* --- ANIMASI --- */
-        @keyframes profileFadeIn {
-            from { opacity: 0; transform: scale(1.1); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .animate-profiles { animation: profileFadeIn 0.6s ease-out forwards; }
-
-        /* --- Halaman 1: Welcome --- */
-        #page1 h1 {
-            font-size: clamp(2rem, 10vw, 4rem);
-            margin-bottom: 50px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--netflix-red);
-            font-weight: 900;
-            text-align: center;
-        }
-
-        .btn-start {
-            background-color: var(--netflix-red);
-            color: white;
-            border: none;
-            padding: 16px 45px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-
-        /* --- Halaman 2: Username --- */
+        /* --- Welcome & Login --- */
+        #page1 h1 { font-size: clamp(2rem, 10vw, 4rem); color: var(--netflix-red); font-weight: 900; }
+        .btn-start { background-color: var(--netflix-red); color: white; border: none; padding: 16px 45px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 4px; }
         #page2 { background-color: var(--soft-white); color: #333; }
-        .input-box {
-            padding: 15px;
-            width: 85%;
-            max-width: 320px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+        .input-box { padding: 15px; width: 85%; max-width: 320px; border: 2px solid #ddd; border-radius: 4px; text-align: center; }
 
         /* --- Room Selection --- */
-        .profile-selection-container { text-align: center; width: 100%; padding: 0 10px; }
-        .main-profile { margin-bottom: 40px; display: flex; justify-content: center; }
-        .secondary-profiles {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
+        .profile-selection-container { text-align: center; width: 100%; }
+        .secondary-profiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 400px; margin: 0 auto; }
         .profile-card { text-align: center; cursor: pointer; color: inherit; text-decoration: none; }
-        .profile-img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            border-radius: 4px;
-            overflow: hidden;
-            background-color: #333;
-            border: 2px solid transparent;
-            transition: 0.3s;
-        }
-        .main-profile .profile-img { width: 160px; height: 160px; }
+        .profile-img { width: 100%; aspect-ratio: 1/1; border-radius: 4px; overflow: hidden; background-color: #333; border: 2px solid transparent; transition: 0.3s; }
+        .main-profile .profile-img { width: 160px; height: 160px; margin: 0 auto 40px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
         .profile-card:hover .profile-img { border-color: white; }
         .profile-card p { font-size: 0.75rem; margin-top: 10px; color: #a3a3a3; font-weight: bold; }
 
-        /* --- Room Content (Video Fix) --- */
-        #page4 { overflow-y: auto; background-color: #000; display: block; padding-top: 70px; }
-        .nav-header {
-            position: fixed;
-            top: 0; width: 100%; height: 60px;
-            background: rgba(0,0,0,0.9);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; box-sizing: border-box; z-index: 100;
-        }
+        /* --- NETFLIX UI INTERFACE (Page 4) --- */
+        #page4 { display: block; background-color: var(--bg-dark); }
         
-        .video-container-fixed {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto 20px auto;
-            background: #000;
-        }
-
-        /* Menggunakan aspek rasio otomatis agar tidak memotong kontrol */
-        .video-box {
+        .hero-section {
             position: relative;
             width: 100%;
-            aspect-ratio: 16 / 9; /* Standar untuk Landscape */
+            height: 56.25vw; /* 16:9 ratio */
+            max-height: 70vh;
             background: #000;
         }
 
-        /* Khusus video Portrait (Tegak) jika diperlukan */
-        .video-box.portrait {
-            aspect-ratio: 9 / 16;
-        }
+        .hero-section iframe { width: 100%; height: 100%; border: 0; }
 
-        .video-box iframe {
+        .hero-overlay {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; border: 0;
+            bottom: 0; left: 0; width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+            box-sizing: border-box;
         }
 
-        .btn-back { color: white; background: none; border: none; font-size: 1.5rem; }
+        .hero-btns { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-putar { background: white; color: black; border: none; padding: 10px 25px; border-radius: 4px; font-weight: bold; display: flex; align-items: center; gap: 5px; font-size: 0.9rem; }
+        .btn-info { background: rgba(109, 109, 110, 0.7); color: white; border: none; padding: 10px 25px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; }
+
+        .content-slider { padding: 20px 0 20px 20px; }
+        .slider-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; }
+        .slider-container { display: flex; overflow-x: auto; gap: 10px; scrollbar-width: none; }
+        .slider-container::-webkit-scrollbar { display: none; }
+
+        .movie-card {
+            min-width: 160px;
+            width: 160px;
+            aspect-ratio: 16/9;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .movie-card img { width: 100%; height: 100%; object-fit: cover; }
+        .badge-baru { position: absolute; bottom: 0; width: 100%; background: var(--netflix-red); color: white; font-size: 0.6rem; text-align: center; font-weight: bold; padding: 2px 0; }
+
+        .nav-header { position: fixed; top: 0; width: 100%; height: 60px; display: flex; align-items: center; padding: 0 20px; z-index: 100; transition: 0.3s; background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent); }
+        .btn-back { color: white; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
     </style>
 </head>
 <body>
 
+    <!-- HALAMAN 1 & 2 TETAP SAMA -->
     <div id="page1" class="page">
         <h1>SELAMAT DATANG</h1>
         <button class="btn-start" onclick="nextPage(2)">START</button>
@@ -153,9 +109,9 @@
         <h2 style="margin-bottom: 30px;">DI ISI YA BIDADARIKU</h2>
         <input type="text" id="nameInput" class="input-box" placeholder="Ketikan nama lengkapmu...">
         <button class="btn-start" onclick="validateName()">MASUK</button>
-        <p id="error-name" style="color: var(--netflix-red); display: none; margin-top: 15px;">Nama tidak cocok!</p>
     </div>
 
+    <!-- HALAMAN 3 (Who's Watching) -->
     <div id="page3" class="page">
         <div class="profile-selection-container animate-profiles">
             <h1 style="font-size: 1.8rem; margin-bottom: 30px;">Who's watching?</h1>
@@ -186,13 +142,19 @@
         </div>
     </div>
 
+    <!-- HALAMAN 4 (Netflix Style Content) -->
     <div id="page4" class="page">
         <div class="nav-header">
             <button class="btn-back" onclick="nextPage(3)">←</button>
-            <span id="roomTitle"></span>
-            <div style="width: 24px;"></div>
+            <span style="font-weight:bold; margin-left:15px; letter-spacing:1px;" id="navTitle"></span>
         </div>
-        <div id="roomBody" style="padding: 10px;"></div>
+
+        <div id="heroArea"></div>
+
+        <div class="content-slider">
+            <div class="slider-title">Baru Ditambahkan</div>
+            <div class="slider-container" id="sliderBawah"></div>
+        </div>
     </div>
 
     <script>
@@ -205,31 +167,48 @@
         function validateName() {
             const input = document.getElementById('nameInput').value.toLowerCase().trim();
             if (input === "bhytania avrinda pubhyta vanha") { nextPage(3); } 
-            else { document.getElementById('error-name').style.display = 'block'; }
+            else { alert("Nama tidak cocok!"); }
         }
 
-        function createVid(src, isPortrait = false) {
-            const portraitClass = isPortrait ? 'portrait' : '';
-            return `<div class="video-container-fixed">
-                <div class="video-box ${portraitClass}">
-                    <iframe src="${src}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                </div>
-            </div>`;
+        function switchHero(src) {
+            document.getElementById('heroVideo').src = src + "/preview";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function openRoom(title) {
             const pin = prompt("🔐 PIN 4-digit:");
             if (pin === "1111") {
-                document.getElementById('roomTitle').innerText = title;
-                const body = document.getElementById('roomBody');
-                
+                document.getElementById('navTitle').innerText = title;
+                const heroArea = document.getElementById('heroArea');
+                const slider = document.getElementById('sliderBawah');
+
                 if (title === 'PANTAI BATU BEKUNG') {
-                    body.innerHTML = 
-                        createVid("https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792", true) + // Video 1 Portrait
-                        createVid("https://drive.google.com/file/d/1z4QYoUCukYF1RTY-BnAauBNArRGjsf1p", false) + // Video 2 Landscape
-                        createVid("https://drive.google.com/file/d/1m5GIKT7KUkGkQy8tuphcjGami00YdgSy", false);  // Video 3 Landscape
+                    // Hero Section
+                    heroArea.innerHTML = `
+                        <div class="hero-section">
+                            <iframe id="heroVideo" src="https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792/preview" allowfullscreen></iframe>
+                            <div class="hero-overlay">
+                                <div style="font-weight:bold; font-size:1.5rem;">Kenangan di Batu Bekung</div>
+                                <div class="hero-btns">
+                                    <button class="btn-putar">▶ Putar</button>
+                                    <button class="btn-info">ⓘ Selengkapnya</button>
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    // Thumbnail Slider (Video 2 & 3)
+                    slider.innerHTML = `
+                        <div class="movie-card" onclick="switchHero('https://drive.google.com/file/d/1z4QYoUCukYF1RTY-BnAauBNArRGjsf1p')">
+                            <img src="2026_05_14_04_01_IMG_3789.JPG">
+                            <div class="badge-baru">Baru Ditambahkan</div>
+                        </div>
+                        <div class="movie-card" onclick="switchHero('https://drive.google.com/file/d/1m5GIKT7KUkGkQy8tuphcjGami00YdgSy')">
+                            <img src="2026_05_14_04_01_IMG_3789.JPG">
+                            <div class="badge-baru">Baru Ditambahkan</div>
+                        </div>`;
                 } else {
-                    body.innerHTML = `<div style="text-align:center; padding-top:50px;">Konten sedang disiapkan.</div>`;
+                    heroArea.innerHTML = `<div style="padding:100px 20px; text-align:center;">Konten untuk ${title} sedang disiapkan.</div>`;
+                    slider.innerHTML = "";
                 }
                 nextPage(4);
             } else if (pin !== null) { alert("❌ PIN Salah!"); }
