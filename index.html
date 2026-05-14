@@ -154,6 +154,7 @@
             width: 100%;
             overflow: hidden;
             border-radius: 10px;
+            margin-bottom: 20px;
         }
         .video-container iframe {
             position: absolute;
@@ -262,14 +263,18 @@
                 document.getElementById('roomTitle').innerText = title;
                 let content = "";
                 if (title === 'PANTAI BATU BEKUNG') {
+                    // MENAMBAHKAN KEDUA VIDEO BARU
                     content = `
                         <div class="video-container">
                             <iframe 
-                                src="https://drive.google.com/file/d/1_rauyreFisKV5Z1V-HHJQ4pieAG4r792/preview" 
-                                allow="autoplay" 
-                                allowfullscreen="true" 
-                                webkitallowfullscreen="true" 
-                                mozallowfullscreen="true">
+                                src="https://drive.google.com/file/d/1z4QYoUCukYF1RTY-BnAauBNArRGjsf1p/preview" 
+                                allow="autoplay" allowfullscreen="true">
+                            </iframe>
+                        </div>
+                        <div class="video-container">
+                            <iframe 
+                                src="https://drive.google.com/file/d/1m5GIKT7KUkGkQy8tuphcjGami00YdgSy/preview" 
+                                allow="autoplay" allowfullscreen="true">
                             </iframe>
                         </div>
                     `;
