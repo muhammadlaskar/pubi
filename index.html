@@ -35,34 +35,52 @@
         /* --- HALAMAN LOGIN (PC STYLE) --- */
         #page2 {
             display: flex;
+            /* Latar belakang menggunakan foto asli (2026_05_14_03_59_IMG_3788.JPG), dengan overlay gelap dan blur */
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('2026_05_14_03_59_IMG_3788.JPG');
             background-size: cover;
             background-position: center;
         }
 
+        /* Menambahkan efek blur HANYA pada latar belakang (tidak pada ikon) */
+        #page2::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: inherit;
+            filter: blur(15px); /* Intensitas blur */
+            z-index: -1;
+        }
+
         .login-container {
             text-align: center;
             animation: fadeIn 1.2s ease-out;
+            z-index: 1; /* Di atas latar belakang yang blur */
         }
 
         .user-icon {
-            width: 110px;
-            height: 110px;
+            width: 130px;
+            height: 130px;
             background-color: rgba(255,255,255,0.1);
             border-radius: 50%;
             margin: 0 auto 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid rgba(255,255,255,0.4);
+            border: 3px solid rgba(255,255,255,0.5);
             overflow: hidden;
+            background-color: white; /* Memberikan latar belakang putih bersih untuk ikon */
         }
         
-        .user-icon img { width: 100%; height: 100%; object-fit: cover; }
+        /* Menggunakan FOTO BARU (IMG_1093.png) sebagai foto avatar */
+        .user-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-        .login-container h2 { font-size: 1.8rem; margin-bottom: 25px; font-weight: 400; }
+        .login-container h2 { font-size: 1.8rem; margin-bottom: 25px; font-weight: 400; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
 
-        /* --- ANIMASI GARIS INPUT --- */
+        /* --- ANIMASI GARIS INPUT (TETAP SAMA) --- */
         .input-group {
             display: flex;
             flex-direction: column;
@@ -89,7 +107,6 @@
             transition: background 0.3s;
         }
 
-        /* Garis animasi di bawah input */
         .input-line {
             position: absolute;
             bottom: 0;
@@ -102,7 +119,7 @@
         }
 
         .input-box:focus + .input-line {
-            width: 250px; /* Lebar garis saat kursor menyentuh */
+            width: 250px;
         }
 
         .btn-login {
@@ -113,20 +130,12 @@
             cursor: pointer;
             font-size: 1.2rem;
             transition: 0.3s;
+            border-radius: 4px;
         }
 
         .btn-login:hover { background: rgba(255, 255, 255, 0.4); }
 
-        /* --- HALAMAN 3 & 4 (ANIMASI PERPINDAHAN) --- */
-        .page-transition {
-            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* --- HALAMAN 3 & 4 (TETAP SAMA) --- */
         #page3 { overflow-y: auto; }
         .profile-selection-container { text-align: center; width: 100%; padding: 40px 10px; box-sizing: border-box; }
         .main-profile { margin-bottom: 40px; display: flex; justify-content: center; }
@@ -136,7 +145,7 @@
         .portrait-thumb { aspect-ratio: 2/3 !important; }
         .main-profile .profile-img { width: 160px; height: 160px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-card:hover .profile-img { border-color: white; transform: scale(1.05); }
+        .profile-card:hover .profile-img { border-color: white; }
         .profile-card p { font-size: 0.75rem; margin-top: 10px; color: #a3a3a3; font-weight: bold; }
 
         #page4 { background-color: #000; overflow: hidden; }
@@ -154,7 +163,7 @@
     <div id="page2" class="page" style="display: flex;">
         <div class="login-container">
             <div class="user-icon">
-                <img src="2026_05_14_03_59_IMG_3788.JPG" alt="User">
+                <img src="IMG_1093.png" alt="User">
             </div>
             <h2>Hai Cintakuuuu😀</h2>
             <div class="input-group">
@@ -169,7 +178,7 @@
     </div>
 
     <div id="page3" class="page">
-        <div class="profile-selection-container page-transition">
+        <div class="profile-selection-container">
             <h1 style="font-size: 1.8rem; margin-bottom: 30px; font-weight: bold; text-align: center;">Who's watching?</h1>
             <div class="main-profile">
                 <div class="profile-card" onclick="openRoom('CINTAKU')">
@@ -203,7 +212,7 @@
             <button class="btn-back" onclick="stopAndBack()">←</button>
             <span id="roomTitle" style="font-weight: bold; margin-left: 15px;"></span>
         </div>
-        <div class="video-fullscreen-container page-transition">
+        <div class="video-fullscreen-container">
             <iframe id="videoIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
         </div>
     </div>
@@ -216,7 +225,6 @@
         function nextPage(pageNumber) {
             const pages = document.querySelectorAll('.page');
             
-            // Animasi Fade Out untuk halaman lama
             pages.forEach(p => {
                 if (p.style.display === 'flex' || p.style.display === 'block') {
                     p.classList.add('fade-out');
@@ -235,7 +243,7 @@
                     target.style.display = 'flex';
                 }
                 window.scrollTo(0,0);
-            }, 600); // Waktu jeda transisi
+            }, 600);
         }
 
         function stopAndBack() {
