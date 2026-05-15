@@ -34,28 +34,26 @@
         /* --- HALAMAN LOGIN (PC STYLE) --- */
         #page2 {
             display: flex;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('2026_05_14_03_59_IMG_3788.JPG');
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('2026_05_14_03_59_IMG_3788.JPG');
             background-size: cover;
             background-position: center;
-            backdrop-filter: blur(8px);
         }
 
         .login-container {
             text-align: center;
-            animation: fadeIn 1.5s ease-out;
+            animation: fadeIn 1.2s ease-out;
         }
 
         .user-icon {
-            width: 120px;
-            height: 120px;
-            background-color: rgba(255,255,255,0.2);
+            width: 110px;
+            height: 110px;
+            background-color: rgba(255,255,255,0.1);
             border-radius: 50%;
             margin: 0 auto 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 4rem;
-            border: 2px solid rgba(255,255,255,0.5);
+            border: 2px solid rgba(255,255,255,0.4);
             overflow: hidden;
         }
         
@@ -69,11 +67,9 @@
             font-size: 1.8rem;
             margin-bottom: 25px;
             font-weight: 400;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .input-group {
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -81,54 +77,40 @@
         }
 
         .input-box {
-            padding: 12px 20px;
-            width: 250px;
-            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 15px;
+            width: 220px;
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 2px;
             color: white;
             font-size: 1rem;
             outline: none;
-            transition: 0.3s;
-        }
-
-        .input-box:focus {
-            background: rgba(0, 0, 0, 0.6);
-            border-color: rgba(255, 255, 255, 0.8);
         }
 
         .btn-login {
             background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             color: white;
-            padding: 10px 15px;
+            padding: 8px 15px;
             cursor: pointer;
-            border-radius: 2px;
             font-size: 1.2rem;
-            transition: 0.3s;
         }
 
-        .btn-login:hover {
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        /* --- ROOM SELECTION (TIDAK BERUBAH) --- */
+        /* --- HALAMAN 3 & 4 TETAP --- */
         #page3 { overflow-y: auto; }
         .profile-selection-container { text-align: center; width: 100%; padding: 40px 10px; box-sizing: border-box; }
         .main-profile { margin-bottom: 40px; display: flex; justify-content: center; }
         .secondary-profiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 400px; margin: 0 auto; padding: 0 15px; }
         .profile-card { text-align: center; cursor: pointer; color: inherit; text-decoration: none; }
-        .profile-img { width: 100%; aspect-ratio: 1/1; border-radius: 4px; overflow: hidden; background-color: #333; border: 2px solid transparent; transition: 0.3s; }
+        .profile-img { width: 100%; aspect-ratio: 1/1; border-radius: 4px; overflow: hidden; background-color: #333; border: 2px solid transparent; }
         .portrait-thumb { aspect-ratio: 2/3 !important; }
         .main-profile .profile-img { width: 160px; height: 160px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
         .profile-card:hover .profile-img { border-color: white; }
-        .profile-card p { font-size: 0.75rem; margin-top: 10px; color: #a3a3a3; text-transform: uppercase; font-weight: bold; }
+        .profile-card p { font-size: 0.75rem; margin-top: 10px; color: #a3a3a3; font-weight: bold; }
 
-        /* --- VIDEO LAYOUT (TIDAK BERUBAH) --- */
         #page4 { background-color: #000; overflow: hidden; }
-        .nav-header { position: absolute; top: 0; width: 100%; height: 70px; display: flex; align-items: center; padding: 0 20px; z-index: 100; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); box-sizing: border-box; pointer-events: none; }
-        .btn-back { color: white; background: none; border: none; font-size: 2rem; cursor: pointer; pointer-events: auto; }
+        .nav-header { position: absolute; top: 0; width: 100%; height: 70px; display: flex; align-items: center; padding: 0 20px; z-index: 100; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); box-sizing: border-box; }
+        .btn-back { color: white; background: none; border: none; font-size: 2rem; cursor: pointer; }
         .video-fullscreen-container { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
         .video-fullscreen-container iframe { width: 100%; height: 100%; border: 0; }
 
@@ -144,7 +126,7 @@
             </div>
             <h2>Bidadariku</h2>
             <div class="input-group">
-                <input type="text" id="nameInput" class="input-box" placeholder="Username" onkeypress="handleEnter(event)">
+                <input type="text" id="nameInput" class="input-box" placeholder="Username" autocomplete="off">
                 <button class="btn-login" onclick="validateName()">→</button>
             </div>
             <p id="error-name" style="color: #ff4d4d; display: none; margin-top: 15px; font-size: 0.8rem;">Username tidak ditemukan.</p>
@@ -186,4 +168,74 @@
             <button class="btn-back" onclick="nextPage(3)">←</button>
             <span id="roomTitle" style="font-weight: bold; margin-left: 15px;"></span>
         </div>
-        <div class="video-
+        <div class="video-fullscreen-container">
+            <iframe id="videoIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Memungkinkan tekan Enter untuk login
+        document.getElementById("nameInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                validateName();
+            }
+        });
+
+        function nextPage(pageNumber) {
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+            const target = document.getElementById('page' + pageNumber);
+            if (pageNumber === 3) {
+                target.style.display = 'block';
+            } else {
+                target.style.display = 'flex';
+            }
+            window.scrollTo(0,0);
+        }
+
+        function validateName() {
+            const input = document.getElementById('nameInput').value.toLowerCase().trim();
+            
+            // Daftar kata kunci yang diizinkan
+            const validKeys = ["laskar", "pubhy", "bhytania", "avrinda", "pubhyta", "vanha"];
+            
+            // Cek apakah input mengandung salah satu kata di atas
+            let found = false;
+            for (let key of validKeys) {
+                if (input.indexOf(key) !== -1) {
+                    found = true;
+                    break;
+                }
+            }
+            
+            if (found) { 
+                nextPage(3); 
+            } else { 
+                document.getElementById('error-name').style.display = 'block'; 
+                // Hilangkan pesan error setelah 3 detik
+                setTimeout(() => {
+                    document.getElementById('error-name').style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function openRoom(title) {
+            const pin = prompt("🔐 PIN 4-digit:");
+            if (pin === "1111") {
+                document.getElementById('roomTitle').innerText = title;
+                const iframe = document.getElementById('videoIframe');
+                
+                if (title === 'PANTAI BATU BEKUNG') {
+                    iframe.src = "https://drive.google.com/file/d/1ci9uiSL6AkFV33tNYzIbLD7aD7M_fdVu/preview";
+                } else if (title === 'TUMPAK SEWU') {
+                    iframe.src = "https://drive.google.com/file/d/1m5GIKT7KUkGkQy8tuphcjGami00YdgSy/preview";
+                } else {
+                    iframe.src = "";
+                }
+                nextPage(4);
+            } else if (pin !== null) { 
+                alert("❌ PIN Salah!"); 
+            }
+        }
+    </script>
+</body>
+</html>
