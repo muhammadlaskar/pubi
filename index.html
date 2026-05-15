@@ -29,6 +29,7 @@
             align-items: center;
             flex-direction: column;
             position: relative;
+            transition: opacity 0.8s ease-in-out;
         }
 
         /* --- HALAMAN LOGIN (PC STYLE) --- */
@@ -57,22 +58,22 @@
             overflow: hidden;
         }
         
-        .user-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .user-icon img { width: 100%; height: 100%; object-fit: cover; }
 
-        .login-container h2 {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            font-weight: 400;
-        }
+        .login-container h2 { font-size: 1.8rem; margin-bottom: 25px; font-weight: 400; }
 
+        /* --- ANIMASI GARIS INPUT --- */
         .input-group {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 15px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
             gap: 10px;
         }
 
@@ -80,10 +81,28 @@
             padding: 12px 15px;
             width: 220px;
             background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
             color: white;
             font-size: 1rem;
             outline: none;
+            transition: background 0.3s;
+        }
+
+        /* Garis animasi di bawah input */
+        .input-line {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+        }
+
+        .input-box:focus + .input-line {
+            width: 250px; /* Lebar garis saat kursor menyentuh */
         }
 
         .btn-login {
@@ -93,19 +112,31 @@
             padding: 8px 15px;
             cursor: pointer;
             font-size: 1.2rem;
+            transition: 0.3s;
         }
 
-        /* --- HALAMAN 3 & 4 TETAP --- */
+        .btn-login:hover { background: rgba(255, 255, 255, 0.4); }
+
+        /* --- HALAMAN 3 & 4 (ANIMASI PERPINDAHAN) --- */
+        .page-transition {
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         #page3 { overflow-y: auto; }
         .profile-selection-container { text-align: center; width: 100%; padding: 40px 10px; box-sizing: border-box; }
         .main-profile { margin-bottom: 40px; display: flex; justify-content: center; }
         .secondary-profiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 400px; margin: 0 auto; padding: 0 15px; }
         .profile-card { text-align: center; cursor: pointer; color: inherit; text-decoration: none; }
-        .profile-img { width: 100%; aspect-ratio: 1/1; border-radius: 4px; overflow: hidden; background-color: #333; border: 2px solid transparent; }
+        .profile-img { width: 100%; aspect-ratio: 1/1; border-radius: 4px; overflow: hidden; background-color: #333; border: 2px solid transparent; transition: 0.3s; }
         .portrait-thumb { aspect-ratio: 2/3 !important; }
         .main-profile .profile-img { width: 160px; height: 160px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-card:hover .profile-img { border-color: white; }
+        .profile-card:hover .profile-img { border-color: white; transform: scale(1.05); }
         .profile-card p { font-size: 0.75rem; margin-top: 10px; color: #a3a3a3; font-weight: bold; }
 
         #page4 { background-color: #000; overflow: hidden; }
@@ -115,6 +146,7 @@
         .video-fullscreen-container iframe { width: 100%; height: 100%; border: 0; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .fade-out { opacity: 0; transition: opacity 0.8s; }
     </style>
 </head>
 <body>
@@ -124,17 +156,20 @@
             <div class="user-icon">
                 <img src="2026_05_14_03_59_IMG_3788.JPG" alt="User">
             </div>
-            <h2>Bidadariku</h2>
+            <h2>Hai Cintakuuuu😀</h2>
             <div class="input-group">
-                <input type="text" id="nameInput" class="input-box" placeholder="Username" autocomplete="off">
-                <button class="btn-login" onclick="validateName()">→</button>
+                <div class="input-wrapper">
+                    <input type="text" id="nameInput" class="input-box" placeholder="Username" autocomplete="off">
+                    <div class="input-line"></div>
+                    <button class="btn-login" onclick="validateName()">→</button>
+                </div>
             </div>
             <p id="error-name" style="color: #ff4d4d; display: none; margin-top: 15px; font-size: 0.8rem;">Username tidak ditemukan.</p>
         </div>
     </div>
 
     <div id="page3" class="page">
-        <div class="profile-selection-container">
+        <div class="profile-selection-container page-transition">
             <h1 style="font-size: 1.8rem; margin-bottom: 30px; font-weight: bold; text-align: center;">Who's watching?</h1>
             <div class="main-profile">
                 <div class="profile-card" onclick="openRoom('CINTAKU')">
@@ -165,40 +200,54 @@
 
     <div id="page4" class="page">
         <div class="nav-header">
-            <button class="btn-back" onclick="nextPage(3)">←</button>
+            <button class="btn-back" onclick="stopAndBack()">←</button>
             <span id="roomTitle" style="font-weight: bold; margin-left: 15px;"></span>
         </div>
-        <div class="video-fullscreen-container">
+        <div class="video-fullscreen-container page-transition">
             <iframe id="videoIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
         </div>
     </div>
 
     <script>
-        // Memungkinkan tekan Enter untuk login
         document.getElementById("nameInput").addEventListener("keyup", function(event) {
-            if (event.key === "Enter") {
-                validateName();
-            }
+            if (event.key === "Enter") { validateName(); }
         });
 
         function nextPage(pageNumber) {
-            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-            const target = document.getElementById('page' + pageNumber);
-            if (pageNumber === 3) {
-                target.style.display = 'block';
-            } else {
-                target.style.display = 'flex';
-            }
-            window.scrollTo(0,0);
+            const pages = document.querySelectorAll('.page');
+            
+            // Animasi Fade Out untuk halaman lama
+            pages.forEach(p => {
+                if (p.style.display === 'flex' || p.style.display === 'block') {
+                    p.classList.add('fade-out');
+                }
+            });
+
+            setTimeout(() => {
+                pages.forEach(p => {
+                    p.style.display = 'none';
+                    p.classList.remove('fade-out');
+                });
+                const target = document.getElementById('page' + pageNumber);
+                if (pageNumber === 3) {
+                    target.style.display = 'block';
+                } else {
+                    target.style.display = 'flex';
+                }
+                window.scrollTo(0,0);
+            }, 600); // Waktu jeda transisi
+        }
+
+        function stopAndBack() {
+            const iframe = document.getElementById('videoIframe');
+            iframe.src = "";
+            nextPage(3);
         }
 
         function validateName() {
             const input = document.getElementById('nameInput').value.toLowerCase().trim();
-            
-            // Daftar kata kunci yang diizinkan
             const validKeys = ["laskar", "pubhy", "bhytania", "avrinda", "pubhyta", "vanha"];
             
-            // Cek apakah input mengandung salah satu kata di atas
             let found = false;
             for (let key of validKeys) {
                 if (input.indexOf(key) !== -1) {
@@ -211,7 +260,6 @@
                 nextPage(3); 
             } else { 
                 document.getElementById('error-name').style.display = 'block'; 
-                // Hilangkan pesan error setelah 3 detik
                 setTimeout(() => {
                     document.getElementById('error-name').style.display = 'none';
                 }, 3000);
