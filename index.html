@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>pwubhyta cantikku</title>
+    <title>Special Gift for My Queen</title>
     <style>
         :root {
             --netflix-red: #E50914;
@@ -30,31 +30,63 @@
             flex-direction: column;
             position: relative;
             transition: opacity 0.8s ease-in-out;
-        }
-
-        /* --- HALAMAN COUNTDOWN --- */
-        #countdownPage {
-            background-color: #000;
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
         }
 
-        #countdownPage h1 {
-            font-size: clamp(1.2rem, 5vw, 2rem);
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            color: #aaa;
-        }
-
-        .timer-container {
+        /* --- HALAMAN 1: START --- */
+        #pageStart {
             display: flex;
-            gap: 15px;
-            justify-content: center;
-            align-items: center;
+            background: radial-gradient(circle, #222 0%, #000 100%);
         }
 
+        /* --- HALAMAN 2: UCAPAN --- */
+        #pageGreeting {
+            background: #000;
+        }
+
+        .greeting-text {
+            font-size: clamp(1.2rem, 5vw, 2.2rem);
+            line-height: 1.6;
+            max-width: 800px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: fadeIn 2.5s ease-in;
+        }
+
+        .btn-next-gift {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .btn-next-gift:hover {
+            background: white;
+            color: black;
+        }
+
+        /* --- HALAMAN 3: COUNTDOWN --- */
+        #countdownPage {
+            background-color: #000;
+        }
+
+        #countdownPage h1 {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            color: #aaa;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .timer-container { display: flex; gap: 15px; justify-content: center; }
         .timer-box {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -62,128 +94,56 @@
             border-radius: 8px;
             min-width: 70px;
         }
+        .timer-num { font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 700; color: var(--netflix-red); font-family: monospace; }
+        .timer-label { font-size: 0.7rem; text-transform: uppercase; color: #666; margin-top: 5px; }
 
-        .timer-num {
-            font-size: clamp(2rem, 8vw, 3.5rem);
-            font-weight: 700;
-            color: var(--netflix-red);
-            font-family: monospace;
-        }
-
-        .timer-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: #666;
-            margin-top: 5px;
-            letter-spacing: 1px;
-        }
-
-        /* --- HALAMAN LOGIN (PC STYLE) --- */
-        #page2 {
+        /* --- HALAMAN 4: LOGIN --- */
+        #pageLogin {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('2026_05_14_03_59_IMG_3788.JPG');
             background-size: cover;
             background-position: center;
         }
-
-        #page2::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: inherit;
-            filter: blur(15px);
-            z-index: -1;
-        }
-
-        .login-container {
-            text-align: center;
-            animation: fadeIn 1.2s ease-out;
-            z-index: 1;
-        }
-
-        .user-icon {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 3px solid rgba(255,255,255,0.5);
-            overflow: hidden;
-            background-color: white;
-        }
-        
+        #pageLogin::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: inherit; filter: blur(15px); z-index: -1; }
+        .user-icon { width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 20px; border: 3px solid rgba(255,255,255,0.5); overflow: hidden; background: white; }
         .user-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .input-box { padding: 12px 15px; width: 220px; background: rgba(0, 0, 0, 0.5); border: none; border-bottom: 2px solid rgba(255, 255, 255, 0.2); color: white; font-size: 1rem; outline: none; }
+        .btn-login { background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 8px 15px; cursor: pointer; font-size: 1.2rem; border-radius: 4px; }
 
-        .login-container h2 { font-size: 1.8rem; margin-bottom: 25px; font-weight: 400; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
-
-        .input-group { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .input-wrapper { position: relative; display: flex; align-items: center; gap: 10px; }
-
-        .input-box {
-            padding: 12px 15px;
-            width: 220px;
-            background: rgba(0, 0, 0, 0.5);
-            border: none;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: background 0.3s;
-        }
-
-        .input-line {
-            position: absolute;
-            bottom: 0; left: 50%; width: 0; height: 2px;
-            background-color: white;
-            transition: all 0.4s ease;
-            transform: translateX(-50%);
-        }
-
-        .input-box:focus + .input-line { width: 250px; }
-
-        .btn-login {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: white;
-            padding: 8px 15px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            border-radius: 4px;
-        }
-
-        .btn-login:hover { background: rgba(255, 255, 255, 0.4); }
-
-        /* --- HALAMAN 3 & 4 --- */
-        .page-transition { animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-        #page3 { overflow-y: auto; }
-        .profile-selection-container { text-align: center; width: 100%; padding: 40px 10px; box-sizing: border-box; }
-        .main-profile { margin-bottom: 40px; display: flex; justify-content: center; }
-        .secondary-profiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 400px; margin: 0 auto; padding: 0 15px; }
+        /* --- HALAMAN 5 & 6 (Selection & Video) --- */
+        #pageSelection { overflow-y: auto; display: none; }
+        .secondary-profiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 400px; margin: 0 auto; }
         .profile-card { text-align: center; cursor: pointer; color: inherit; text-decoration: none; }
-        .profile-img { width: 100%; aspect-ratio: 1/1; border-radius: 4px; overflow: hidden; background-color: #333; border: 2px solid transparent; transition: 0.3s; }
+        .profile-img { width: 100%; aspect-ratio: 1/1; border-radius: 4px; overflow: hidden; background-color: #333; border: 2px solid transparent; }
         .portrait-thumb { aspect-ratio: 2/3 !important; }
-        .main-profile .profile-img { width: 160px; height: 160px; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-card:hover .profile-img { border-color: white; transform: scale(1.05); }
-        .profile-card p { font-size: 0.75rem; margin-top: 10px; color: #a3a3a3; font-weight: bold; }
+        
+        #pageVideo { background-color: #000; overflow: hidden; }
+        .btn-back { color: white; background: none; border: none; font-size: 2rem; cursor: pointer; position: absolute; top: 20px; left: 20px; z-index: 100; }
+        iframe { width: 100vw; height: 100vh; border: 0; }
 
-        #page4 { background-color: #000; overflow: hidden; }
-        .nav-header { position: absolute; top: 0; width: 100%; height: 70px; display: flex; align-items: center; padding: 0 20px; z-index: 100; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); box-sizing: border-box; }
-        .btn-back { color: white; background: none; border: none; font-size: 2rem; cursor: pointer; }
-        .video-fullscreen-container { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
-        .video-fullscreen-container iframe { width: 100%; height: 100%; border: 0; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- ANIMASI --- */
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .fade-out { opacity: 0; transition: opacity 0.8s; }
+        .btn-start { background-color: var(--netflix-red); color: white; border: none; padding: 16px 45px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 4px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
+    <div id="pageStart" class="page">
+        <button class="btn-start" onclick="goToGreeting()">START</button>
+    </div>
+
+    <div id="pageGreeting" class="page">
+        <div class="greeting-text">
+            "Selamat ulang tahun yang ke 21 sayangkuuu, <br>
+            semoga diberikan kesehatan, kelancaran, <br>
+            dan senantiasa dimudahkan rezekinya. ❤️"
+        </div>
+        <button class="btn-next-gift" onclick="goToCountdown()">Next to get gift →</button>
+    </div>
+
     <div id="countdownPage" class="page">
-        <h1>KADO SPESIAL UNTUKMU AKAN TERBUKA DALAM...</h1>
+        <h1>HADIAH UTAMAMU AKAN TERBUKA DALAM...</h1>
         <div class="timer-container">
             <div class="timer-box"><div id="days" class="timer-num">00</div><div class="timer-label">Hari</div></div>
             <div class="timer-box"><div id="hours" class="timer-num">00</div><div class="timer-label">Jam</div></div>
@@ -192,185 +152,125 @@
         </div>
     </div>
 
-    <div id="page2" class="page">
+    <div id="pageLogin" class="page">
         <div class="login-container">
-            <div class="user-icon">
-                <img src="IMG_1093.png" alt="User">
-            </div>
+            <div class="user-icon"><img src="IMG_1093.png"></div>
             <h2>Hai Cintakuuuu😀</h2>
-            <div class="input-group">
-                <div class="input-wrapper">
-                    <input type="text" id="nameInput" class="input-box" placeholder="Username" autocomplete="off">
-                    <div class="input-line"></div>
-                    <button class="btn-login" onclick="validateName()">→</button>
-                </div>
+            <div class="input-wrapper">
+                <input type="text" id="nameInput" class="input-box" placeholder="Username" autocomplete="off">
+                <button class="btn-login" onclick="validateName()">→</button>
             </div>
-            <p id="error-name" style="color: #ff4d4d; display: none; margin-top: 15px; font-size: 0.8rem;">Username tidak ditemukan.</p>
+            <p id="error-name" style="color: #ff4d4d; display: none; margin-top: 15px;">Username salah sayang.</p>
         </div>
     </div>
 
-    <div id="page3" class="page">
-        <div class="profile-selection-container page-transition">
-            <h1 style="font-size: 1.8rem; margin-bottom: 30px; font-weight: bold; text-align: center;">Who's watching?</h1>
-            <div class="main-profile">
+    <div id="pageSelection" class="page">
+        <div style="text-align: center; padding: 40px 10px;">
+            <h1 style="font-size: 1.8rem; margin-bottom: 30px; font-weight: bold;">Who's watching?</h1>
+            <div style="display: flex; justify-content: center; margin-bottom: 40px;">
                 <div class="profile-card" onclick="openRoom('CINTAKU')">
-                    <div class="profile-img"><img src="2026_05_14_03_59_IMG_3788.JPG"></div>
-                    <p>CINTAKU</p>
+                    <div class="profile-img" style="width: 160px; height: 160px;"><img src="2026_05_14_03_59_IMG_3788.JPG"></div>
+                    <p style="font-weight: bold; font-size: 0.8rem; margin-top: 10px; color: #aaa;">CINTAKU</p>
                 </div>
             </div>
             <div class="secondary-profiles">
                 <div class="profile-card" onclick="openRoom('PANTAI BATU BEKUNG')">
                     <div class="profile-img portrait-thumb"><img src="2026_05_14_23_52_IMG_3806.JPG"></div>
-                    <p>PANTAI BATU BEKUNG</p>
+                    <p style="font-weight: bold; font-size: 0.7rem; margin-top: 10px; color: #aaa;">PANTAI BATU BEKUNG</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('TUMPAK SEWU')">
                     <div class="profile-img"><img src="2026_05_14_04_51_IMG_3792.JPG"></div>
-                    <p>TUMPAK SEWU</p>
+                    <p style="font-weight: bold; font-size: 0.7rem; margin-top: 10px; color: #aaa;">TUMPAK SEWU</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('JATIM PARK')">
                     <div class="profile-img"><img src="2026_05_14_04_02_IMG_3790.JPG"></div>
-                    <p>JATIM PARK</p>
+                    <p style="font-weight: bold; font-size: 0.7rem; margin-top: 10px; color: #aaa;">JATIM PARK</p>
                 </div>
                 <div class="profile-card" onclick="openRoom('DANCOK CAFE')">
                     <div class="profile-img"><img src="2026_05_14_04_03_IMG_3791.JPG"></div>
-                    <p>DANCOK CAFE</p>
+                    <p style="font-weight: bold; font-size: 0.7rem; margin-top: 10px; color: #aaa;">DANCOK CAFE</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="page4" class="page">
-        <div class="nav-header">
-            <button class="btn-back" onclick="stopAndBack()">←</button>
-            <span id="roomTitle" style="font-weight: bold; margin-left: 15px;"></span>
-        </div>
-        <div class="video-fullscreen-container page-transition">
-            <iframe id="videoIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
-        </div>
+    <div id="pageVideo" class="page">
+        <button class="btn-back" onclick="stopAndBack()">←</button>
+        <iframe id="videoIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
     </div>
 
     <script>
-        // --- 1. PENGATURAN TARGET WAKTU BUKA ---
-        // Format penulisan: "Bulan Tanggal, Tahun Jam:Menit:Detik"
-        // Contoh jika targetnya tanggal 6 di bulan depan, sesuaikan nama bulan dan tahunnya.
+        // --- KONFIGURASI ---
         const targetDate = new Date("June 6, 2026 00:00:00").getTime();
+        let isGiftReady = false;
 
-        let countdownInterval;
-
-        window.onload = function() {
-            // Jalankan hitung mundur pertama kali saat web dimuat
-            checkCountdown();
-            countdownInterval = setInterval(checkCountdown, 1000);
-        };
-
-        function checkCountdown() {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            // Jika waktu pembukaan BELUM tiba
-            if (difference > 0) {
-                document.getElementById('countdownPage').style.display = 'flex';
-                
-                // Kalkulasi Hari, Jam, Menit, Detik
-                const d = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((difference % (1000 * 60)) / 1000);
-
-                // Tampilkan angka ke layar dengan format dua digit (01, 02, dst)
-                document.getElementById('days').innerText = d < 10 ? '0' + d : d;
-                document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
-                document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
-                document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
-            } 
-            // Jika waktu pembukaan SUDAH tiba
-            else {
-                clearInterval(countdownInterval);
-                document.getElementById('countdownPage').style.display = 'none';
-                
-                // Jika posisi web masih di awal, langsung tampilkan halaman login (page2)
-                const page3Active = document.getElementById('page3').style.display;
-                const page4Active = document.getElementById('page4').style.display;
-                
-                if (page3Active !== 'block' && page4Active !== 'flex') {
-                    document.getElementById('page2').style.style.display = 'flex';
-                }
+        function goToGreeting() { hideAll(); showPage('pageGreeting'); }
+        
+        function goToCountdown() {
+            hideAll();
+            checkCountdown(); // Jalankan sekali dulu
+            if (isGiftReady) {
+                showPage('pageLogin');
+            } else {
+                showPage('countdownPage');
+                setInterval(checkCountdown, 1000);
             }
         }
 
-        document.getElementById("nameInput").addEventListener("keyup", function(event) {
-            if (event.key === "Enter") { validateName(); }
-        });
+        function checkCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
 
-        function nextPage(pageNumber) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(p => {
-                if (p.style.display === 'flex' || p.style.display === 'block') {
-                    p.classList.add('fade-out');
+            if (diff > 0) {
+                isGiftReady = false;
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById('days').innerText = d < 10 ? '0'+d : d;
+                document.getElementById('hours').innerText = h < 10 ? '0'+h : h;
+                document.getElementById('minutes').innerText = m < 10 ? '0'+m : m;
+                document.getElementById('seconds').innerText = s < 10 ? '0'+s : s;
+            } else {
+                isGiftReady = true;
+                // Jika sedang di halaman countdown, otomatis pindah ke login
+                if(document.getElementById('countdownPage').style.display === 'flex') {
+                    hideAll();
+                    showPage('pageLogin');
                 }
-            });
-
-            setTimeout(() => {
-                pages.forEach(p => {
-                    p.style.display = 'none';
-                    p.classList.remove('fade-out');
-                });
-                const target = document.getElementById('page' + pageNumber);
-                if (pageNumber === 3) {
-                    target.style.display = 'block';
-                } else {
-                    target.style.display = 'flex';
-                }
-                window.scrollTo(0,0);
-            }, 600);
-        }
-
-        function stopAndBack() {
-            const iframe = document.getElementById('videoIframe');
-            iframe.src = "";
-            nextPage(3);
+            }
         }
 
         function validateName() {
             const input = document.getElementById('nameInput').value.toLowerCase().trim();
-            const validKeys = ["laskar", "pubhy", "bhytania", "avrinda", "pubhyta", "vanha"];
-            
-            let found = false;
-            for (let key of validKeys) {
-                if (input.indexOf(key) !== -1) {
-                    found = true;
-                    break;
-                }
-            }
-            
-            if (found) { 
-                nextPage(3); 
-            } else { 
-                document.getElementById('error-name').style.display = 'block'; 
-                setTimeout(() => {
-                    document.getElementById('error-name').style.display = 'none';
-                }, 3000);
+            const valid = ["laskar", "pubhy", "bhytania", "avrinda", "pubhyta", "vanha"];
+            if (valid.some(k => input.includes(k))) {
+                hideAll();
+                showPage('pageSelection');
+                document.getElementById('pageSelection').style.display = 'block';
+            } else {
+                document.getElementById('error-name').style.display = 'block';
             }
         }
 
         function openRoom(title) {
             const pin = prompt("🔐 PIN 4-digit:");
             if (pin === "1111") {
-                document.getElementById('roomTitle').innerText = title;
                 const iframe = document.getElementById('videoIframe');
-                
-                if (title === 'PANTAI BATU BEKUNG') {
-                    iframe.src = "https://drive.google.com/file/d/1ci9uiSL6AkFV33tNYzIbLD7aD7M_fdVu/preview";
-                } else if (title === 'TUMPAK SEWU') {
-                    iframe.src = "https://drive.google.com/file/d/1m5GIKT7KUkGkQy8tuphcjGami00YdgSy/preview";
-                } else {
-                    iframe.src = "";
-                }
-                nextPage(4);
-            } else if (pin !== null) { 
-                alert("❌ PIN Salah!"); 
-            }
+                if (title === 'PANTAI BATU BEKUNG') iframe.src = "https://drive.google.com/file/d/1ci9uiSL6AkFV33tNYzIbLD7aD7M_fdVu/preview";
+                else if (title === 'TUMPAK SEWU') iframe.src = "https://drive.google.com/file/d/1m5GIKT7KUkGkQy8tuphcjGami00YdgSy/preview";
+                hideAll();
+                showPage('pageVideo');
+            } else if (pin !== null) alert("PIN Salah sayang.");
         }
+
+        function stopAndBack() { document.getElementById('videoIframe').src = ""; hideAll(); showPage('pageSelection'); document.getElementById('pageSelection').style.display = 'block';}
+
+        function hideAll() { document.querySelectorAll('.page').forEach(p => p.style.display = 'none'); }
+        function showPage(id) { document.getElementById(id).style.display = 'flex'; }
+
+        // Enter key support
+        document.getElementById("nameInput").addEventListener("keyup", function(e) { if(e.key === "Enter") validateName(); });
     </script>
 </body>
 </html>
